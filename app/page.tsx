@@ -1,9 +1,11 @@
-
+import React from "react";
+import TopNavbar from "./components/topNavbar";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Home Page</h1>
-    </main>
+    <div>
+      <TopNavbar />
+      <h1 className="text-xl text-center m-4">Home Page</h1>
+    </div>
   );
 }
