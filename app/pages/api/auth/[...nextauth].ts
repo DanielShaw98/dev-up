@@ -1,64 +1,69 @@
-import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
 import prisma from '@/lib/prisma';
 import { compare } from 'bcrypt';
+import NextAuth, { type NextAuthOptions } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
-export const authOptions = {
-  providers: [
-    CredentialsProvider({
-      name: 'Credentials',
-      credentials: {
-        email: { label: 'Email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          return null;
-        }
-
-        // Fetch user from the database
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        });
-
-        // Ensure user exists and password is correct
-        if (user && await compare(credentials.password, user.password)) {
-          // Convert id to string and return the user object
-          return {
-            id: user.id.toString(),  // Convert number id to string
-            email: user.email,
-            name: user.firstname + ' ' + user.lastname,  // Combine name fields if necessary
-          };
-        }
-
-        // Return null if authentication fails
-        return null;
-      },
-    }),
-  ],
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
+  providers: [
+    CredentialsProvider({
+      name: 'Sign in',
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials.password) {
+          return null;
+        }
+
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+
+        if (!user) {
+          return null;
+        }
+
+        const isPasswordValid = await compare(credentials.password, user.password);
+
+        if (!isPasswordValid) {
+          return null;
+        }
+
+        return {
+          id: user.id.toString(), // Ensure id is a string
+          email: user.email,
+          firstname: user.firstname,
+          lastname: user.lastname,
+        };
+      },
+    }),
+  ],
   callbacks: {
-    async jwt({ token, user }: { token: any, user: any }) {
+    session: async ({ session, token }) => {
+      console.log('Session Callback', { session, token });
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id as string, // Ensure id is a string
+        },
+      };
+    },
+    jwt: async ({ token, user }) => {
+      console.log('JWT Callback', { token, user });
       if (user) {
-        token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
+        token.id = (user as any).id.toString(); // Ensure id is a string
       }
       return token;
-    },
-    async session({ session, token }: { session: any, token: any }) {
-      if (token) {
-        session.user = {
-          id: token.id,
-          email: token.email,
-          name: token.name,
-        };
-      }
-      return session;
     },
   },
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
