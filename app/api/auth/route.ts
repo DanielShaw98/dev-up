@@ -1,7 +1,8 @@
-import prisma from '@/lib/prisma';
-import { compare } from 'bcrypt';
-import NextAuth, { type NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import prisma from "@/lib/prisma";
+import { compare } from "bcrypt";
+import type { NextAuthOptions } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -36,7 +37,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         return {
-          id: user.id.toString(), // Ensure id is a string
+          id: user.id.toString(),
           email: user.email,
           firstname: user.firstname,
           lastname: user.lastname,
@@ -46,24 +47,26 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     session: async ({ session, token }) => {
-      console.log('Session Callback', { session, token });
       return {
         ...session,
         user: {
           ...session.user,
-          id: token.id as string, // Ensure id is a string
+          id: token.id as string,
         },
       };
     },
     jwt: async ({ token, user }) => {
-      console.log('JWT Callback', { token, user });
       if (user) {
-        token.id = (user as any).id.toString(); // Ensure id is a string
+        token.id = (user as any).id.toString();
       }
       return token;
     },
   },
+  pages: {
+    signIn: '/auth/signin',
+  },
 };
 
 const handler = NextAuth(authOptions);
+
 export { handler as GET, handler as POST };
