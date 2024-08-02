@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
+import { signOut, signIn } from "next-auth/react";
 
 const ClientNavbar = ({ session }: { session: any }) => {
   return (
@@ -40,12 +40,18 @@ const ClientNavbar = ({ session }: { session: any }) => {
               </button>
             </>
           ) : (
-            <Link
-              href="/auth/signin"
-              className="text-white hover:text-orange font-sub font-light text-xl transition-all duration-200 ease-in-out px-12 py-2 border border-white rounded-lg hover:rounded-3xl hover:border-orange"
-            >
-              Sign In
-            </Link>
+              <button
+                onClick={() => signIn()}
+                className="text-white hover:text-orange font-sub font-light text-xl transition-all duration-200 ease-in-out px-12 py-2 border border-white rounded-lg hover:rounded-3xl hover:border-orange"
+              >
+                Sign In
+              </button>
+            // <Link
+            //   href="/auth/signin"
+            //   className="text-white hover:text-orange font-sub font-light text-xl transition-all duration-200 ease-in-out px-12 py-2 border border-white rounded-lg hover:rounded-3xl hover:border-orange"
+            // >
+            //   Sign In
+            // </Link>
           )}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/route";
+import authOptions from "../api/auth/authOptions";
 import ClientNavbar from "./clientNavbar";
 
 const ServerNavbar = async () => {

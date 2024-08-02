@@ -19,8 +19,7 @@ enum UserTitle {
 model User {
   id            Int      @id @default(autoincrement())
   username      String   @unique
-  firstname     String
-  lastname      String
+  name          String
   email         String   @unique
   password      String
   title         UserTitle
