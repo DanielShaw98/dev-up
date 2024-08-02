@@ -11,5 +11,20 @@
 
 body {
   color: rgb(var(--font-color));
-  background: rgb(var(--background-color))
+	background: linear-gradient(-45deg, #FF4A01, #17181D, #17181D, #FF4A01);
+	background-size: 400% 400%;
+	animation: gradient 20s ease infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
