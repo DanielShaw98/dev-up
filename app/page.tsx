@@ -17,7 +17,7 @@ interface ProjectWithDetails {
   files: File[]; // Ensure files are included
 }
 
-export default async function Page() {
+export default async function Home() {
   // Fetch data directly within the server component
   const projects: ProjectWithDetails[] = await prisma.project.findMany({
     include: {

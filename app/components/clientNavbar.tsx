@@ -50,7 +50,7 @@ const ClientNavbar = ({ session }: { session: any }) => {
                 href="/"
                 className="text-white hover:text-orange font-sub font-light text-lg md:text-xl transition-all duration-200 ease-in-out px-4 py-2 border border-white rounded-lg hover:rounded-3xl hover:border-orange"
               >
-                Dashboard
+                Home
               </Link>
               <Link
                 href="/projects"
@@ -100,7 +100,7 @@ const ClientNavbar = ({ session }: { session: any }) => {
               href="/"
               className="text-white hover:text-orange font-sub font-light text-lg transition-all duration-200 ease-in-out px-4 py-2 border border-white rounded-lg hover:rounded-3xl hover:border-orange"
             >
-              Dashboard
+              Home
             </Link>
             <Link
               href="/projects"
