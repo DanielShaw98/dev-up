@@ -1,8 +1,6 @@
-// app/page.tsx
-import { PrismaClient, User, File } from '@prisma/client';
-import ProjectCard from './components/projectCard'; // Import your ProjectCard component
-
-const prisma = new PrismaClient();
+import { User, File } from "@prisma/client";
+import prisma from "../lib/prisma";
+import ProjectCard from "./components/projectCard";
 
 interface ProjectWithDetails {
   id: number;
