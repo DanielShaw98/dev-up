@@ -4,7 +4,6 @@ import authOptions from "../api/auth/authOptions";
 import prisma from "../../lib/prisma";
 import Link from "next/link";
 import ProjectCardContainer from "../components/projectCardContainer";
-import { ProjectWithDetails } from "../types/types";
 
 const Projects = async () => {
   // Fetch session data

@@ -21,7 +21,6 @@ body {
   background-attachment: fixed;
 	animation: gradient 20s ease infinite;
   min-height: 100vh;
-	/* height: 100vh; */
 }
 
 @keyframes gradient {
