@@ -18,7 +18,7 @@ const Profile = async () => {
   });
 
   return (
-    <div className="mx-32 my-8 h-screen">
+    <div className="mx-32 my-8">
       <h1 className="text-3xl font-main text-center mb-6">Profile</h1>
       <h2 className="text-xl mb-4">Details</h2>
       <div className="bg-gray-100 p-4 rounded-lg">

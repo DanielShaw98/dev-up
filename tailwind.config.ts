@@ -25,6 +25,9 @@ const config: Config = {
         sub: ["Outfit", "sans-serif"],
         body: ["Fira Mono", "monospace"],
       },
+      screens: {
+        'xs': '480px',
+      },
     },
   },
   plugins: [],

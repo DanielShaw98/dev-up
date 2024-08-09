@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import authOptions from "../api/auth/authOptions";
 import prisma from "../../lib/prisma";
 import Link from "next/link";
+import ProjectCardContainer from "../components/projectCardContainer";
+import { ProjectWithDetails } from "../types/types";
 
 const Projects = async () => {
   // Fetch session data
@@ -16,11 +18,14 @@ const Projects = async () => {
   // Fetch user projects from the database
   const projects = await prisma.project.findMany({
     where: { author: { email: session.user.email } },
-    include: { files: true },
+    include: {
+      author: true, // Include author details
+      files: true,  // Include files details
+    },
   });
 
   return (
-    <div className="mx-32 my-8 h-screen">
+    <div className="mx-32 my-8">
       <div className="flex flex-row justify-center items-center space-x-8 mb-6">
         <h1 className="text-3xl font-main text-center">Projects</h1>
         <div className="relative group">
@@ -35,14 +40,7 @@ const Projects = async () => {
           </span>
         </div>
       </div>
-      <div className="space-y-4">
-        {projects.map(project => (
-          <div key={project.id} className="p-4 bg-gray-100 rounded-lg">
-            <h2 className="text-xl font-semibold">{project.title}</h2>
-            <p>{project.description}</p>
-          </div>
-        ))}
-      </div>
+      <ProjectCardContainer projects={projects} />
     </div>
   );
 };

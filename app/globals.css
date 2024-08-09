@@ -9,12 +9,19 @@
   --background-color: 23, 24, 29;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   color: rgb(var(--font-color));
 	background: linear-gradient(-45deg, #FF4A01, #17181D, #17181D, #FF4A01);
-	background-size: 400% 400%;
+	background-size: 1000% 1000%;
+  background-attachment: fixed;
 	animation: gradient 20s ease infinite;
-	height: 100vh;
+  min-height: 100vh;
+	/* height: 100vh; */
 }
 
 @keyframes gradient {

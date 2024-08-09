@@ -20,11 +20,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SessionWrapper>
-          <ServerNavbar />
-          {children}
-          <Footer />
-        </SessionWrapper>
+        <div className="min-h-screen flex flex-col">
+          <SessionWrapper>
+            <ServerNavbar />
+            <div className="flex-grow">
+              {children}
+            </div>
+            <Footer />
+          </SessionWrapper>
+        </div>
       </body>
     </html>
   );
