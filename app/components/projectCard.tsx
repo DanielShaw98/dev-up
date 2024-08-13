@@ -53,7 +53,7 @@ const ProjectCard = ({
     <div
       ref={cardRef}
       className={`relative shadow-md rounded-lg p-6 mb-4 border border-white transition-all duration-300 ease-in-out cursor-pointer ${
-        isExpanded ? 'col-span-1 row-span-1 xs:col-span-1 sm:col-span-1 md:col-span-2 lg:col-span-3 h-auto' : 'col-span-1'
+        isExpanded ? 'col-span-1 row-span-1 xs:col-span-1 sm:col-span-1 md:col-span-2 lg:col-span-2 h-auto' : 'col-span-1'
       }`}
       onClick={handleCardClick}
     >
@@ -100,6 +100,7 @@ const ProjectCard = ({
           }`}
           onClick={(e) => {
             e.stopPropagation(); // Prevent the card click event from firing
+            alert("You need to sign in to view this page"); // Alert message to login
           }}
         >
           View Details

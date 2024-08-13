@@ -25,7 +25,7 @@ const ProjectDetail = async ({ params }: { params: { id: string } }) => {
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user?.email) {
-      // Redirect to home page if not authenticated
+      // // Redirect to home page if not authenticated
       redirect("/");
     }
 
