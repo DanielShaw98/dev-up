@@ -2,7 +2,8 @@
 
 import React, { useRef, useEffect } from "react";
 import { User, File } from "@prisma/client";
-import { format } from 'date-fns';
+import { format } from "date-fns";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 interface ProjectCardProps {
@@ -33,6 +34,8 @@ const ProjectCard = ({
   onToggleExpand
 }: ProjectCardProps) => {
   const cardRef = useRef<HTMLDivElement | null>(null);
+  // Use useSession to get authentication status
+  const { data: session } = useSession();
 
   // Scroll the card into view when expanded
   useEffect(() => {
@@ -47,6 +50,15 @@ const ProjectCard = ({
   // Handle card click for expansion only
   const handleCardClick = () => {
     onToggleExpand();
+  };
+
+  // Handle view details click
+  const handleViewDetailsClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent the card click event from firing
+    if (!session) {
+      e.preventDefault(); // Prevent the link from navigating
+      alert("You need to sign in to view this page");
+    }
   };
 
   return (
@@ -98,10 +110,7 @@ const ProjectCard = ({
           className={`absolute bottom-4 right-4 text-blue-500 hover:underline ${
             isExpanded ? 'block' : 'hidden'
           }`}
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent the card click event from firing
-            alert("You need to sign in to view this page"); // Alert message to login
-          }}
+          onClick={handleViewDetailsClick}
         >
           View Details
         </p>
