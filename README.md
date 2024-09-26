@@ -26,7 +26,7 @@ To get started with DevUp, follow these steps:
 
 1.  Clone the Repository
     
-        git clone https://github.com/yourusername/devup.git
+        git clone https://github.com/DanielShaw98/devup.git
     
 	    cd devup
 
